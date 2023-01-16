@@ -36,7 +36,6 @@
 {%endblock%}
 
 {% block main %}
-
 <div class="row">
     <div class="col">
         <h2>Lista veiculos</h2>
@@ -61,6 +60,9 @@
                     {% endfor %}
                 </tbody>
             </table>
+            
+        <a class="btn btn-info" href="{% url 'relatorio_pdf' %}">Relatório PDF</a>
+        <a class="btn btn-info" href="{% url 'relatorio_csv' %}">Relatorio CSV</a>
 
         <form action="{% url 'core_veiculos_novo' %}" method="POST">
             {% csrf_token %}
