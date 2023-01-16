@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block title %}List Pessoas{% endblock %}
+
+{% block menu%}
+  <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" href="{% url 'core_home' %}">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+        <li class="nav-item active dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Servicos</a>
+            <div class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'core_pessoas' %}">Pessoas</a>
+            <a class="dropdown-item" href="{% url 'core_veiculos' %}">Veiculos</a>
+            <a class="dropdown-item" href="{% url 'core_movimento_rotativo' %}">Rotativo</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'core_mensalista' %}">Mensalistas</a>
+            </div>
+        </li>
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                    <a class="nav-link disabled" href="">Ola, </a>
+            </li>
+
+            <li class="nav-item">
+                    <a class="nav-link" href="">Logout</a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                    <a class="nav-link" href="">Login</a>
+            </li>
+        {% endif %}
+    </ul>
+{%endblock%}
+
+{% block main %}
+<div class="row">
+    <div class="col-sm-6">
+            <h1>Cadastro</h1>
+
+        <form action="{% url 'core_pessoas_novo' %}" method="POST">
+            {% csrf_token %}
+    
+            {{ form|bootstrap }}
+    
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+    </div>
+    <div class="col-sm-6">
+            <h1>Lista pessoas</h1>
+
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Endereco</th>
+                    <th scope="col">Telefone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pessoa in pessoas%}
+                        <tr>
+                        <th scope="row"><a href="{% url 'core_pessoas_update' pessoa.id %}">{{ pessoa.id }}</a></th>
+                        <td>{{ pessoa.nome }}</td>
+                        <td>{{ pessoa.endereco }}</td>
+                        <td>{{ pessoa.telefone }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    </div>
+</div>
+
+{% endblock %}
