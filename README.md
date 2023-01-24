@@ -1,2 +1,2 @@
-# Cursos
-Projeto com as aulas desenvolvidas em programação full-stack
+# ProgramacaoFullStack
+Resolução de Problemas com a utilização de Algoritmos.
